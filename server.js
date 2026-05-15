@@ -26,10 +26,19 @@ const globalLimiter = rateLimit({
 });
 
 // Middleware
+// app.use(cors({
+//   origin: process.env.CLIENT_URL || 'http://localhost:5173',
+//   credentials: true,
+// }));
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
-  credentials: true,
+  origin: 'https://front-end-gen-z-tomz.vercel.app', // Your specific frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true // Required if you're using cookies or Authorization headers
 }));
+
+// IMPORTANT: Handle the "Preflight" request (OPTIONS) explicitly for Vercel
+app.options('*', cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(globalLimiter);
