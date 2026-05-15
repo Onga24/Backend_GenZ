@@ -1,6 +1,8 @@
 
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import dotenv from 'dotenv';
+dotenv.config();
 // Verify JWT and attach user to request
 export const protect = async (req, res, next) => {
   let token;

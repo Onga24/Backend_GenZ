@@ -14,6 +14,8 @@ import OTP from '../models/OTP.js';
 import { generateOTPCode, sendOTPEmail } from '../utils/sendOTP.js';
 import { protect } from '../middleware/authMiddleware.js';
 const router = express.Router();
+import dotenv from 'dotenv';
+dotenv.config();
 // Rate limiter for auth routes
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
