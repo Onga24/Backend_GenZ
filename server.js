@@ -38,7 +38,7 @@ app.use(cors({
 }));
 
 // IMPORTANT: Handle the "Preflight" request (OPTIONS) explicitly for Vercel
-app.options('/*', cors());
+app.options('*', cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(globalLimiter);
