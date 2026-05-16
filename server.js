@@ -110,7 +110,7 @@ const globalLimiter = rateLimit({
 // Middleware
 app.use(cors({
   origin: 'https://front-end-gen-z-tomz.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], // ✅ PATCH added
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
