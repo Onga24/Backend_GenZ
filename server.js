@@ -87,18 +87,26 @@ import userRoutes from './routes/user.js';
 dotenv.config();
 
 const app = express();
-
+app.set('trust proxy', 1);
 // Connect to MongoDB
 connectDB();
 
 // Global rate limiter
+// const globalLimiter = rateLimit({
+//   windowMs: 15 * 60 * 1000,
+//   max: 300,
+//   standardHeaders: true,
+//   legacyHeaders: false,
+// });
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 300,
   standardHeaders: true,
   legacyHeaders: false,
+  // ✅ Fix for Vercel — trust the proxy
+  keyGenerator: (req) => req.headers['x-forwarded-for']?.split(',')[0] || req.ip,
+  skip: (req) => req.method === 'OPTIONS', // ✅ Never rate-limit preflight
 });
-
 // Middleware
 app.use(cors({
   origin: 'https://front-end-gen-z-tomz.vercel.app',
